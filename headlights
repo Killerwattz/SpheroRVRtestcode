@@ -17,8 +17,7 @@ rvrOb = SpheroRvrObserver()
 loop = asyncio.get_event_loop()
 
 #variables for headlights
-light_data = ambient_light_handler
-headlights = 128
+
 
 rvr = SpheroRvrAsync(
     dal=SerialAsyncDal(
@@ -60,13 +59,19 @@ def main():
 
         rvrOb.close()
 
-
+light_data = ambient_light_handler
+headlights = 128
 # defined main2 as not sure about the coding placement in the first main, call this main 2 after the first main, so sensor data should be ready
 async def main2():
 
     global light_data
     light_data = int(float(value))
-
+    while True:
+        if light_data != headlights:
+            if headlights < light_data:
+                headlights = headlights + 1
+            else:
+                headlights = headlights - 1
 
     await rvr.wake()
 
@@ -86,7 +91,7 @@ async def main2():
         led_brightness_values=[
             headlights, headlights, headlights,
             headlights, headlights, headlights
-        
+
         ]
     )
 
@@ -98,12 +103,7 @@ async def main2():
         light_data = 255
 
 
-while True:
-    if light_data != headlights:
-        if headlights < light_data:
-            headlights = headlights + 1
-        else:
-            headlights = headlights - 1
+
 
 if __name__ == '__main__':
     main()
