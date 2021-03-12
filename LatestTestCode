@@ -14,7 +14,7 @@ rvr = SpheroRvrObserver()
 
 def ambient_light_handler(ambient_light_data):
     print('Ambient light data response: ', ambient_light_data)
-    x = ambient_light_data.get('light')
+    x = (ambient_light_data[AmbientLight]['Light'])
 # do we need to set them here?
     rvr.set_all_leds(
         led_group=RvrLedGroups.all_lights.value,
