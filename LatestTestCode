@@ -25,14 +25,14 @@ def ambient_light_handler(ambient_light_data):
 
     rvr.set_all_leds(
         led_group=RvrLedGroups.headlight_right.value,  # 0xe00
-        led_brightness_values=[1 / ambient_light_data, 1 / ambient_light_data, 1 / ambient_light_data]
+        led_brightness_values=[1 / float(ambient_light_data, 1 / float(ambient_light_data), 1 / float(ambient_light_data]
     )
 
     time.sleep(1)
 
     rvr.set_all_leds(
         led_group=RvrLedGroups.headlight_left.value,  # 0x1c0
-        led_brightness_values=[1 / ambient_light_data, 1 / ambient_light_data, 1 / ambient_light_data]
+        led_brightness_values=[1 / float(ambient_light_data, 1 / float(ambient_light_data, 1 / float(ambient_light_data]
     )
 
     # Delay to show LEDs change
