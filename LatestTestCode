@@ -14,36 +14,25 @@ rvr = SpheroRvrObserver()
 
 def ambient_light_handler(ambient_light_data):
     print('Ambient light data response: ', ambient_light_data)
-    x = (ambient_light_data['AmbientLight']['Light'])
-# do we need to set them here?
-    rvr.set_all_leds(
-        led_group=RvrLedGroups.all_lights.value,
-        led_brightness_values=[color for _ in range(10) for color in Colors.off.value]
-    )
-
-    # Delay to show LEDs change
-    time.sleep(1)
+    y = (ambient_light_data['AmbientLight']['Light'])
+    z = int(-2.55 * y +255 )
+    x = z
 
     rvr.set_all_leds(
-        led_group=RvrLedGroups.headlight_right.value,  # 0xe00
-        led_brightness_values=[1 / x, 1 / x, 1 / x]
+        led_group=RvrLedGroups.headlight_right.value,
+        led_brightness_values=[x,x,x]
     )
-
-    time.sleep(1)
 
     rvr.set_all_leds(
-        led_group=RvrLedGroups.headlight_left.value,  # 0x1c0
-        led_brightness_values=[1 / x, 1 / x, 1 / x]
+        led_group=RvrLedGroups.headlight_left.value, 
+        led_brightness_values=[x,x,x]
     )
-
-    # Delay to show LEDs change
-    time.sleep(1)
 
 
 def main():
     try:
         rvr.wake()
-
+-
         # Give RVR time to wake up
         time.sleep(2)
 
@@ -52,11 +41,7 @@ def main():
             handler=ambient_light_handler
         )
 
-        rvr.sensor_control.start(interval=250)
-
-        while True:
-            # Delay to allow RVR to stream sensor data
-            time.sleep(1)
+        rvr.sensor_control.start(interval=10)
 
     except KeyboardInterrupt:
         print('\nProgram terminated with keyboard interrupt.')
